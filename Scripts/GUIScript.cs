@@ -4,87 +4,119 @@ using UnityEngine;
 
 public class GUIScript : MonoBehaviour
 {
-    bool checker = true;
-    bool option = false;
-    bool start = false;
-    bool det = false;
-    string playerName = "";
-    string[] diff;
-    int origRad, radioIndex = 0;
-    float origSld, sldValue = 1;
-    // Start is called before the first frame update
+    bool checker, start, character, stage;
+    int selectedChar = 0, selectedStage = 0, origChar, origStage;
+    public GameObject[] characters;
+    public GameObject[] stages;
     void Start()
     {
-        origRad = radioIndex;
-        origSld = sldValue;
-        diff = new string[] { "Easy", "Hard", "Extreme" };
+        origChar = selectedChar;
+        origStage = selectedStage;
+        checker = true;
+        start = false;
+        character = false;
+        stage = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+        if(characters[selectedChar] != null)
+        {
+            characters[selectedChar].transform.Rotate(Vector3.up, 20*Time.deltaTime);
+        }
+        if(stages[selectedStage] != null)
+        {
+            stages[selectedStage].transform.Rotate(Vector3.up, 20*Time.deltaTime);
+        }
     }
 
     private void OnGUI()
     {
         if (checker)
         {
-            GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 200, 300, 400), "Main Menu");
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 150, 200, 30), "START"))
+            GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 100, 300, 200), "Main Menu");
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 30), "START"))
             {
                 checker = false;
                 start = true;
             }
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 30), "OPTION"))
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "CHARACTER"))
             {
                 checker = false;
-                option = true;
+                character = true;
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 200, 30), "STAGE"))
+            {
+                checker = false;
+                stage = true;
             }
         }
-        if (option)
+        if (character)
         {
-            GUI.Box(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 150, 450, 300), "OPTION");
-            GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 100, 300, 80), "Difficulty:");
-            radioIndex = GUI.Toolbar(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 50, 400, 30),
-                radioIndex, diff, "Toggle");
-            GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height / 2, 300, 80), "Game Speed:");
-            sldValue = (int) GUI.HorizontalSlider(
-                new Rect(Screen.width / 2 - 150, Screen.height / 2 + 25, 300, 30), sldValue, 1, 10);
-            GUI.Label(new Rect(Screen.width / 2 + 175, Screen.height / 2 + 25, 300, 80), sldValue.ToString());
-            if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2 + 75, 75, 30), "OKAY"))
+            characters[selectedChar].SetActive(true);
+            if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2, 75, 30), "PREV"))
             {
-                origRad = radioIndex;
-                origSld = sldValue;
-                option = false;
-                checker = true;
+                characters[selectedChar].SetActive(false);
+                selectedChar = (selectedChar - 1 + characters.Length) % characters.Length;
+                characters[selectedChar].SetActive(true);
             }
-            if (GUI.Button(new Rect(Screen.width / 2 + 100, Screen.height / 2 + 75, 75, 30), "CANCEL"))
+            if (GUI.Button(new Rect(Screen.width / 2 + 125, Screen.height / 2, 75, 30), "NEXT"))
             {
-                radioIndex = 0;
-                sldValue = 1;
-                option = false; 
+                characters[selectedChar].SetActive(false);
+                selectedChar = (selectedChar + 1) % characters.Length;
+                characters[selectedChar].SetActive(true);
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 150, 75, 30), "OKAY"))
+            {
+                origChar = selectedChar;
+                characters[selectedChar].SetActive(false);
                 checker = true;
+                character = false;
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
+            {
+                selectedChar = origChar;
+                characters[selectedChar].SetActive(false);
+                checker = true;
+                character = false;
+            }
+        }
+        if(stage)
+        {
+            stages[selectedStage].SetActive(true);
+            if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2, 75, 30), "PREV"))
+            {
+                stages[selectedStage].SetActive(false);
+                selectedStage = (selectedStage - 1 + stages.Length) % stages.Length;
+                stages[selectedStage].SetActive(true);
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 + 125, Screen.height / 2, 75, 30), "NEXT"))
+            {
+                stages[selectedStage].SetActive(false);
+                selectedStage = (selectedStage + 1) % stages.Length;
+                stages[selectedStage].SetActive(true);
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 150, 75, 30), "OKAY"))
+            {
+                origStage = selectedStage;
+                stages[selectedStage].SetActive(false);
+                checker = true;
+                stage = false;
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
+            {
+                selectedStage = origStage;
+                stages[selectedStage].SetActive(false);
+                checker = true;
+                stage = false;
             }
         }
         if (start)
         {
-            GUI.Box(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 150, 400, 300), "");
-            playerName = GUI.TextField(
-                new Rect(Screen.width / 2 - 75, Screen.height / 2 - 100, 250, 20), playerName);
-            GUI.Label(new Rect(Screen.width / 2 - 175, Screen.height / 2 - 100, 300, 50), "Player Name:");
-            if (GUI.Button(new Rect(Screen.width / 2 - 75, Screen.height / 2, 150, 100), "OKAY") && playerName != "")
-            {
-                start = false;
-                det = true;
-            }
-        }
-        if (det)
-        {
-            GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 150, 300, 300), "");
-            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 300, 50), "Player Name:     " + playerName);
-            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 300, 50), "Difficulty:           " + diff[radioIndex]);
-            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2, 300, 50), "Game Speed:     " + sldValue);
+            //aaaaa
         }
     }
 }
