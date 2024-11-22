@@ -5,11 +5,13 @@ using UnityEngine;
 public class GUIScript : MonoBehaviour
 {
     bool checker, start, character, stage;
-    int selectedChar = 0, selectedStage = 0;
+    int selectedChar = 0, selectedStage = 0, origChar, origStage;
     public GameObject[] characters;
     public GameObject[] stages;
     void Start()
     {
+        origChar = selectedChar;
+        origStage = selectedStage;
         checker = true;
         start = false;
         character = false;
@@ -69,11 +71,15 @@ public class GUIScript : MonoBehaviour
             }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 150, 75, 30), "OKAY"))
             {
+                origChar = selectedChar;
+                characters[selectedChar].SetActive(false);
                 checker = true;
                 character = false;
             }
             if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
             {
+                selectedChar = origChar;
+                characters[selectedChar].SetActive(false);
                 checker = true;
                 character = false;
             }
@@ -95,11 +101,15 @@ public class GUIScript : MonoBehaviour
             }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 150, 75, 30), "OKAY"))
             {
+                origStage = selectedStage;
+                stages[selectedStage].SetActive(false);
                 checker = true;
                 stage = false;
             }
             if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
             {
+                selectedStage = origStage;
+                stages[selectedStage].SetActive(false);
                 checker = true;
                 stage = false;
             }
