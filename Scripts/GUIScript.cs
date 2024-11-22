@@ -5,18 +5,15 @@ using UnityEngine;
 public class GUIScript : MonoBehaviour
 {
     bool checker, start, character, stage;
-    string[] chars, stages;
-    int origRadChar, origRadSta, radioIndex1 = 0, radioIndex2 = 0;
+    int selectedChar = 0, selectedStage = 0;
+    public GameObject[] characters;
+    public GameObject[] stages;
     void Start()
     {
         checker = true;
         start = false;
         character = false;
         stage = false;
-        origRadChar = radioIndex1;
-        origRadSta = radioIndex2;
-        chars = new string[] { "", "", "" };
-        stages = new string[] { "", "", "" };
 
     }
 
@@ -24,6 +21,14 @@ public class GUIScript : MonoBehaviour
     void Update()
     {
         
+        if(characters[selectedChar] != null)
+        {
+            characters[selectedChar].transform.Rotate(Vector3.up, 20*Time.deltaTime);
+        }
+        if(stages[selectedStage] != null)
+        {
+            stages[selectedStage].transform.Rotate(Vector3.up, 20*Time.deltaTime);
+        }
     }
 
     private void OnGUI()
@@ -49,36 +54,52 @@ public class GUIScript : MonoBehaviour
         }
         if (character)
         {
-            GUI.Box(new Rect(Screen.width / 2 - 325, Screen.height / 2 - 200, 650, 400), "SELECT CHARACTER");
-            radioIndex1 = GUI.Toolbar(new Rect(Screen.width / 2 - 210, Screen.height / 2 + 75, 600, 30),
-                radioIndex1, chars, "Toggle");
+            characters[selectedChar].SetActive(true);
+            if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2, 75, 30), "PREV"))
+            {
+                characters[selectedChar].SetActive(false);
+                selectedChar = (selectedChar - 1 + characters.Length) % characters.Length;
+                characters[selectedChar].SetActive(true);
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 + 125, Screen.height / 2, 75, 30), "NEXT"))
+            {
+                characters[selectedChar].SetActive(false);
+                selectedChar = (selectedChar + 1) % characters.Length;
+                characters[selectedChar].SetActive(true);
+            }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 150, 75, 30), "OKAY"))
             {
-                origRadChar = radioIndex1;
                 checker = true;
                 character = false;
             }
-            if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "CANCEL"))
+            if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
             {
-                radioIndex1 = origRadChar;
                 checker = true;
                 character = false;
             }
         }
         if(stage)
         {
-            GUI.Box(new Rect(Screen.width / 2 - 325, Screen.height / 2 - 200, 650, 400), "SELECT STAGE");
-            radioIndex2 = GUI.Toolbar(new Rect(Screen.width / 2 - 210, Screen.height / 2 + 75, 600, 30),
-                radioIndex2, stages, "Toggle");
+            stages[selectedStage].SetActive(true);
+            if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2, 75, 30), "PREV"))
+            {
+                stages[selectedStage].SetActive(false);
+                selectedStage = (selectedStage - 1 + stages.Length) % stages.Length;
+                stages[selectedStage].SetActive(true);
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 + 125, Screen.height / 2, 75, 30), "NEXT"))
+            {
+                stages[selectedStage].SetActive(false);
+                selectedStage = (selectedStage + 1) % stages.Length;
+                stages[selectedStage].SetActive(true);
+            }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 150, 75, 30), "OKAY"))
             {
-                origRadSta = radioIndex2;
                 checker = true;
                 stage = false;
             }
-            if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "CANCEL"))
+            if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
             {
-                radioIndex2 = origRadSta;
                 checker = true;
                 stage = false;
             }
