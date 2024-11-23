@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class playermovement : MonoBehaviour
 {
-    CharacterController playerCont;
-    Vector3 origPos;
-    int hp = 100;
-    float drop, lakad;
-    bool isDone = false, canTakeDamage = true;
+    private CharacterController playerCont;
+    private Vector3 origPos;
+    private GameObject[] coinsCol;
+    private int coinsLeft, hp = 100;
+    private float drop;
+    private bool isDone = false;
+    private bool canTakeDamage = true;
 
     // Start is called before the first frame update
     void Start()
@@ -18,39 +18,42 @@ public class PlayerMovement : MonoBehaviour
         playerCont = GetComponent<CharacterController>();
         origPos = playerCont.transform.position;
         drop = 0;
-        Debug.Log("HP: "+hp);
+        Debug.Log("HP: " + hp);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isDone)
+        if (!isDone)
         {
-            if(Input.GetKey(KeyCode.LeftShift))
-            {
-                lakad = Input.GetAxis("Horizontal");
-            }else
-            {
-                lakad = Input.GetAxis("Horizontal") * 0.5f;
-            }
-
+            float lakad = Input.GetAxis("Horizontal") * 0.05f;
             playerCont.Move(
                 transform.TransformDirection(
                 new Vector3(lakad,
-                drop, Input.GetAxis("Vertical") * .5f)));
-            if(playerCont.isGrounded){
-                if(Input.GetButtonDown("Jump"))
-                    {
-                        drop = 0.5f;
-                    }
+                drop, Input.GetAxis("Vertical") * 0.05f)));
+            // {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                lakad *= 2;
+            }
+            else
+            {
+                lakad *= 1;
+            }
+            if (playerCont.isGrounded)
+            {
+                if (Input.GetButtonDown("Jump"))
+                {
+                    drop = 0.5f;
+                }
             }
             else
             {
                 drop -= .01f;
             }
-            
+
             float rotY = Input.GetAxis("Mouse X");
-            transform.Rotate(0,rotY,0);
+            transform.Rotate(0, rotY, 0);
         }
     }
 
@@ -60,16 +63,15 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = origPos;
         }
-        if (hit.gameObject.tag == "Keys")
+        if (hit.gameObject.tag == "Coins")
         {
             Destroy(hit.gameObject);
         }
-        if (hit.gameObject.tag == "obs" && canTakeDamage)
+        if (hit.gameObject.tag == "trap" && canTakeDamage)
         {
             StartCoroutine(KnockbackAndDamage());
-            canTakeDamage = true;
         }
-        if(hit.collider.name == "Win")
+        if (hit.collider.name == "Win")
         {
             isDone = true;
             Debug.Log("You Win");
@@ -88,5 +90,6 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Game Over");
         }
         yield return new WaitForSeconds(1.0f);
+        canTakeDamage = true;
     }
 }
