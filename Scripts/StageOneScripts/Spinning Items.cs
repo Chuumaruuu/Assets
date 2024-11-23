@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpinningItems : MonoBehaviour
 {
+    // Speed of rotation
+    public float rotationSpeed = 100f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +16,7 @@ public class SpinningItems : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Rotate the object around its y-axis
+        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
     }
 }
