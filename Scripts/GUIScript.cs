@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GUIScript : MonoBehaviour
 {
-    bool checker, start, character, stage, controls;
+    bool checker, start, character, stage, controls, playAgain;
     int selectedChar = 0, selectedStage = 0, origChar, origStage;
     public GameObject[] characters;
     public GameObject[] stages;
@@ -17,6 +17,7 @@ public class GUIScript : MonoBehaviour
         character = false;
         stage = false;
         controls = false;
+        playAgain = false;
     }
 
     // Update is called once per frame
@@ -140,6 +141,10 @@ public class GUIScript : MonoBehaviour
         if (start)
         {
             //aaaaa
+        }
+        if (playAgain)
+        {
+            
         }
     }
 }
