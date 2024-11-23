@@ -34,6 +34,9 @@ public class PlayerAnimation : MonoBehaviour
         {
             playerAnim.SetTrigger("atk");
         }
+        if(Input.GetButtonDown("Fire2")){
+            playerAnim.SetTrigger("atk2");
+        }
         if (animInfo.IsName("atk"))
         {
             Debug.Log(animInfo.normalizedTime+"");
@@ -41,33 +44,30 @@ public class PlayerAnimation : MonoBehaviour
         if(Input.GetButtonDown("Jump")){
             playerAnim.SetTrigger("talon");
         }
-        if(Input.GetButtonDown("Fire2")){
-            playerAnim.SetTrigger("ilag");
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == "obs")
+        {
+            StartCoroutine(Knockback());
+        }
+        if(hit.collider.name == "Win")
+        {
+            playerAnim.SetTrigger("panalo");
         }
     }
 
-    // private void OnControllerColliderHit(ControllerColliderHit hit)
-    // {
-    //     if (hit.gameObject.tag == "obs")
-    //     {
-    //         StartCoroutine(Knockback());
-    //     }
-    //     if(hit.collider.name == "Win")
-    //     {
-    //         playerAnim.SetTrigger("panalo");
-    //     }
-    // }
-
-    // private IEnumerator Knockback()
-    // {
-    //     canTakeDamage = false;
-    //     playerAnim.SetTrigger("hit");
-    //     hp--;
-    //     if (hp == 0)
-    //     {
-    //         playerAnim.SetTrigger("talo");
-    //     }
-    //     yield return new WaitForSeconds(1.0f);
-    //     canTakeDamage = true;
-    // }
+    private IEnumerator Knockback()
+    {
+        canTakeDamage = false;
+        playerAnim.SetTrigger("hit");
+        hp--;
+        if (hp == 0)
+        {
+            playerAnim.SetTrigger("talo");
+        }
+        yield return new WaitForSeconds(1.0f);
+        canTakeDamage = true;
+    }
 }
