@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GUIScript : MonoBehaviour
 {
-    bool checker, start, character, stage;
+    bool checker, start, character, stage, controls;
     int selectedChar = 0, selectedStage = 0, origChar, origStage;
     public GameObject[] characters;
     public GameObject[] stages;
@@ -16,7 +16,7 @@ public class GUIScript : MonoBehaviour
         start = false;
         character = false;
         stage = false;
-
+        controls = false;
     }
 
     // Update is called once per frame
@@ -37,21 +37,26 @@ public class GUIScript : MonoBehaviour
     {
         if (checker)
         {
-            GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 100, 300, 200), "Main Menu");
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 30), "START"))
+            GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 150, 300, 300), "Main Menu");
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 30), "START"))
             {
                 checker = false;
                 start = true;
             }
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "CHARACTER"))
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 30), "CHARACTER"))
             {
                 checker = false;
                 character = true;
             }
-            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 200, 30), "STAGE"))
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "STAGE"))
             {
                 checker = false;
                 stage = true;
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 200, 30), "CONTROLS"))
+            {
+                checker = false;
+                controls = true;
             }
         }
         if (character)
@@ -78,8 +83,8 @@ public class GUIScript : MonoBehaviour
             }
             if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
             {
-                selectedChar = origChar;
                 characters[selectedChar].SetActive(false);
+                selectedChar = origChar;
                 checker = true;
                 character = false;
             }
@@ -108,11 +113,29 @@ public class GUIScript : MonoBehaviour
             }
             if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
             {
-                selectedStage = origStage;
                 stages[selectedStage].SetActive(false);
+                selectedStage = origStage;
                 checker = true;
                 stage = false;
             }
+        }
+        if(controls)
+        {
+            GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 175, 300, 325), "CONTROLS");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 125, 250, 30), "W/Up-Arrow\t- Move Forward");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 250, 30), "S/Down-Arrow\t- Move Backward");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 75, 250, 30), "A/Left-Arrow\t- Move Left");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 250, 30), "D/Right-Arrow\t- Move Right");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 250, 30), "Shift\t\t- Run");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2, 250, 30), "Space\t\t- Jump");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 250, 30), "Mouse\t\t- Look Around");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 250, 30), "Left-Click\t\t- Attack");
+            if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 100, 200, 30), "BACK"))
+            {
+                checker = true;
+                controls = false;
+            }
+
         }
         if (start)
         {
