@@ -6,13 +6,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private CharacterController playerCont;
-    private Vector3 origPos;
-    private GameObject[] coinsCol;
-    private int coinsLeft, hp = 100;
-    private float drop;
-    private bool isDone = false;
-    private bool canTakeDamage = true;
+    CharacterController playerCont;
+    Vector3 origPos;
+    int hp = 100;
+    float drop, lakad;
+    bool isDone = false, canTakeDamage = true;
 
     // Start is called before the first frame update
     void Start()
@@ -28,19 +26,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!isDone)
         {
-            float lakad = Input.GetAxis("Horizontal") * 0.05f;
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                lakad = Input.GetAxis("Horizontal");
+            }else
+            {
+                lakad = Input.GetAxis("Horizontal") * 0.5f;
+            }
+
             playerCont.Move(
                 transform.TransformDirection(
                 new Vector3(lakad,
-                drop, Input.GetAxis("Vertical") * 0.05f)));
-            // {
-            if(Input.GetKey(KeyCode.LeftShift))
-            {
-                lakad *= 2;
-            }else
-            {
-                lakad *= 1;
-            }
+                drop, Input.GetAxis("Vertical") * .5f)));
             if(playerCont.isGrounded){
                 if(Input.GetButtonDown("Jump"))
                     {
@@ -63,13 +60,14 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = origPos;
         }
-        if (hit.gameObject.tag == "Coins")
+        if (hit.gameObject.tag == "Keys")
         {
             Destroy(hit.gameObject);
         }
         if (hit.gameObject.tag == "obs" && canTakeDamage)
         {
             StartCoroutine(KnockbackAndDamage());
+            canTakeDamage = true;
         }
         if(hit.collider.name == "Win")
         {
@@ -89,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
             isDone = true;
             Debug.Log("Game Over");
         }
-        yield return new WaitForSeconds(1.0f); 
-        canTakeDamage = true;
+        yield return new WaitForSeconds(1.0f);
     }
 }

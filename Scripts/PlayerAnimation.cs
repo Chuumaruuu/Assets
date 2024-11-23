@@ -33,7 +33,6 @@ public class PlayerAnimation : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             playerAnim.SetTrigger("atk");
-            StartCoroutine(ResetTriggers());
         }
         if (animInfo.IsName("atk"))
         {
@@ -41,17 +40,9 @@ public class PlayerAnimation : MonoBehaviour
         }
         if(Input.GetButtonDown("Jump")){
             playerAnim.SetTrigger("talon");
-            StartCoroutine(ResetTriggers());
         }
         if(Input.GetButtonDown("Fire2")){
             playerAnim.SetTrigger("ilag");
-            StartCoroutine(ResetTriggers());
-        }
-        IEnumerator ResetTriggers()
-        {
-            yield return new WaitForSeconds(0.76f);
-            playerAnim.SetTrigger("idle");
-            // Add more trigger names here if needed
         }
     }
 
