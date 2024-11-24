@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Transform bulletLoc;
     CharacterController playerCont;
     Vector3 origPos;
     int hp = 100;
@@ -51,6 +53,10 @@ public class PlayerMovement : MonoBehaviour
             
             float rotY = Input.GetAxis("Mouse X");
             transform.Rotate(0,rotY,0);
+            if(Input.GetButtonDown("Fire2"))
+            {
+                StartCoroutine(FireBullet());
+            }
         }
     }
 
@@ -67,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
         if (hit.gameObject.tag == "obs" && canTakeDamage)
         {
             StartCoroutine(KnockbackAndDamage());
-            canTakeDamage = true;
         }
         if(hit.collider.name == "Win")
         {
@@ -79,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator KnockbackAndDamage()
     {
         canTakeDamage = false;
-        playerCont.Move(-transform.forward * 5f);
+        playerCont.Move(-transform.forward * 15f);
         hp--;
         Debug.Log("HP: " + hp);
         if (hp == 0)
@@ -87,6 +92,13 @@ public class PlayerMovement : MonoBehaviour
             isDone = true;
             Debug.Log("Game Over");
         }
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(.5f);
+        canTakeDamage = true;
+    }
+
+    IEnumerator FireBullet()
+    {
+        yield return new WaitForSeconds(1);
+        Instantiate(bulletPrefab, bulletLoc.position, bulletLoc.rotation);
     }
 }
