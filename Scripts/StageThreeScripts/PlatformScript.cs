@@ -2,46 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformScript : MonoBehaviour
+public class FallingPlatforms : MonoBehaviour
 {
-    private Vector3[] platformOrigPos;
-    private GameObject[] platforms;
-    private GameObject currentPlatform;
-    private bool isOnPlatform = false;
-    // Start is called before the first frame update
+    Transform[] fPlatTrans;
+    GameObject[] fPlatforms;
+    float fspeed = -15f; // Falling speed
+    float[] fallTimers;
+    Vector3[] fPlatStartPos;
+
     void Start()
     {
-        platforms = GameObject.FindGameObjectsWithTag("Platforms");
-        platformOrigPos = new Vector3[platforms.Length];
-        for (int i = 0; i < platforms.Length; i++)
+        // Find all platforms tagged "FallPlatforms"
+        fPlatforms = GameObject.FindGameObjectsWithTag("Platforms");
+
+        // Initialize arrays based on the number of platforms
+        fPlatTrans = new Transform[fPlatforms.Length];
+        fallTimers = new float[fPlatforms.Length];
+        fPlatStartPos = new Vector3[fPlatforms.Length];
+
+        // Store platform transforms and initial positions
+        for (int i = 0; i < fPlatforms.Length; i++)
         {
-            platformOrigPos[i] = platforms[i].transform.position;
+            fPlatTrans[i] = fPlatforms[i].GetComponent<Transform>();
+            fallTimers[i] = 0;
+            fPlatStartPos[i] = fPlatTrans[i].position;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (isOnPlatform && currentPlatform != null)
+        CapsuleCollider player = GetComponent<CapsuleCollider>();
+        
+        for (int i = 0; i < fPlatTrans.Length; i++)
         {
-            currentPlatform.transform.position = Vector3.Lerp(currentPlatform.transform.position, currentPlatform.transform.position + Vector3.down * 1.5f, Time.deltaTime);
+            if(player.bounds.Intersects(fPlatTrans[i].GetComponent<MeshRenderer>().bounds))
+            {
+                fallTimers[i] += Time.deltaTime;
+
+                if (fallTimers[i] >= 3)
+                {
+                    fPlatTrans[i].Translate(0, fspeed * Time.deltaTime, 0);
+                }
+            }
+            
+        }
+
+        // Reset platforms if they fall below a certain threshold
+        for (int i = 0; i < fPlatTrans.Length; i++)
+        {
+            if (fPlatTrans[i].position.y < -10)
+            {
+                // Reset platform position and timer
+                fPlatTrans[i].position = fPlatStartPos[i];
+                fallTimers[i] = 0;
+            }
         }
     }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        //Platform
-        for (int i = 0; i < platforms.Length; i++)
-        {
-            platforms[i].transform.position = platformOrigPos[i];
-        }
-        isOnPlatform = false;
-        currentPlatform = null;
-        
-        if (hit.gameObject.CompareTag("Platforms"))
-        {
-            currentPlatform = hit.gameObject;
-            isOnPlatform = true;
-        }
-        }
 }
