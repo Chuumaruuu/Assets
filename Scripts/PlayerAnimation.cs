@@ -54,7 +54,7 @@ public class PlayerAnimation : MonoBehaviour
         {
             StartCoroutine(Knockback());
         }
-        if(hit.collider.name == "Win")
+        if(hit.collider.name == "End")
         {
             playerAnim.SetTrigger("panalo");
         }
