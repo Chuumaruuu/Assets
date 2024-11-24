@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     Animator playerAnim;
-    int hp=3;
+    int hp=100;
     bool canTakeDamage = true;
     // Start is called before the first frame update
     void Start()
@@ -32,14 +32,10 @@ public class PlayerAnimation : MonoBehaviour
         AnimatorStateInfo animInfo = playerAnim.GetCurrentAnimatorStateInfo(0);
         if (Input.GetButtonDown("Fire1"))
         {
-            playerAnim.SetTrigger("atk");
+            StartCoroutine(atk());
         }
         if(Input.GetButtonDown("Fire2")){
-            playerAnim.SetTrigger("atk2");
-        }
-        if (animInfo.IsName("atk"))
-        {
-            Debug.Log(animInfo.normalizedTime+"");
+            StartCoroutine(FireBullet());
         }
         if(Input.GetButtonDown("Jump")){
             playerAnim.SetTrigger("talon");
@@ -67,7 +63,19 @@ public class PlayerAnimation : MonoBehaviour
         {
             playerAnim.SetTrigger("talo");
         }
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(.5f);
         canTakeDamage = true;
+    }
+
+    IEnumerator FireBullet()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playerAnim.SetTrigger("atk2");
+    }
+
+    IEnumerator atk()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playerAnim.SetTrigger("atk");
     }
 }
