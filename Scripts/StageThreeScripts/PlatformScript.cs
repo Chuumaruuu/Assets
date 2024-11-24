@@ -6,7 +6,7 @@ public class FallingPlatforms : MonoBehaviour
 {
     Transform[] fPlatTrans;
     GameObject[] fPlatforms;
-    float fspeed = -5f; // Falling speed
+    float fspeed = -15f; // Falling speed
     float[] fallTimers;
     Vector3[] fPlatStartPos;
 
@@ -37,7 +37,6 @@ public class FallingPlatforms : MonoBehaviour
         {
             if(player.bounds.Intersects(fPlatTrans[i].GetComponent<MeshRenderer>().bounds))
             {
-                Debug.Log("Player is on platform " + i+1);
                 fallTimers[i] += Time.deltaTime;
 
                 if (fallTimers[i] >= 3)

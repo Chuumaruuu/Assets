@@ -32,16 +32,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(Input.GetKey(KeyCode.LeftShift))
                 {
-                    lakad = Input.GetAxis("Horizontal");
+                    lakad = Input.GetAxis("Vertical") *.5f;
                 }else
                 {
-                    lakad = Input.GetAxis("Horizontal") * 0.5f;
+                    lakad = Input.GetAxis("Vertical") * 0.25f;
                 }
 
                 playerCont.Move(
                     transform.TransformDirection(
-                    new Vector3(lakad,
-                    drop, Input.GetAxis("Vertical") * .5f)));
+                    new Vector3(Input.GetAxis("Horizontal") * .1f,
+                    drop, lakad)));
                 if(playerCont.isGrounded){
                     if(Input.GetButtonDown("Jump"))
                         {
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(KnockbackAndDamage());
         }
-        if(hit.collider.name == "Win")
+        if(hit.collider.name == "End")
         {
             isDone = true;
             Debug.Log("You Win");
