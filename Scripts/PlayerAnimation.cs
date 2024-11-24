@@ -6,13 +6,16 @@ public class PlayerAnimation : MonoBehaviour
 {
     Animator playerAnim;
     CharacterController playerCont;
-    int hp=3;
+    PlayerMovement playerMovement;
     bool canTakeDamage = true;
+    int playerHp;
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         playerCont = GetComponent<CharacterController>();
+        playerMovement = GetComponent<PlayerMovement>();
+        playerHp = playerMovement.hp;
     }
 
     // Update is called once per frame
@@ -64,8 +67,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         canTakeDamage = false;
         playerAnim.SetTrigger("hit");
-        hp--;
-        if (hp == 0)
+        if (playerHp <= 0)
         {
             playerAnim.SetTrigger("talo");
         }
