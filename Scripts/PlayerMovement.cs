@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform bulletLoc;
     CharacterController playerCont;
     Vector3 origPos;
-    int hp = 100;
+    int hp = 3;
     float drop, lakad;
     bool isDone = false, canTakeDamage = true;
 
@@ -28,34 +28,37 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!isDone)
         {
-            if(Input.GetKey(KeyCode.LeftShift))
+            if(canTakeDamage)
             {
-                lakad = Input.GetAxis("Horizontal");
-            }else
-            {
-                lakad = Input.GetAxis("Horizontal") * 0.5f;
-            }
+                if(Input.GetKey(KeyCode.LeftShift))
+                {
+                    lakad = Input.GetAxis("Horizontal");
+                }else
+                {
+                    lakad = Input.GetAxis("Horizontal") * 0.5f;
+                }
 
-            playerCont.Move(
-                transform.TransformDirection(
-                new Vector3(lakad,
-                drop, Input.GetAxis("Vertical") * .5f)));
-            if(playerCont.isGrounded){
-                if(Input.GetButtonDown("Jump"))
-                    {
-                        drop = 0.5f;
-                    }
-            }
-            else
-            {
-                drop -= .01f;
-            }
-            
-            float rotY = Input.GetAxis("Mouse X");
-            transform.Rotate(0,rotY,0);
-            if(Input.GetButtonDown("Fire2"))
-            {
-                StartCoroutine(FireBullet());
+                playerCont.Move(
+                    transform.TransformDirection(
+                    new Vector3(lakad,
+                    drop, Input.GetAxis("Vertical") * .5f)));
+                if(playerCont.isGrounded){
+                    if(Input.GetButtonDown("Jump"))
+                        {
+                            drop = 0.5f;
+                        }
+                }
+                else
+                {
+                    drop -= .01f;
+                }
+                
+                float rotY = Input.GetAxis("Mouse X");
+                transform.Rotate(0,rotY,0);
+                if(Input.GetButtonDown("Fire2"))
+                {
+                    StartCoroutine(FireBullet());
+                }
             }
         }
     }
@@ -65,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider.name == "Safety Net")
         {
             transform.position = origPos;
+            hp--;
         }
         if (hit.gameObject.tag == "Keys")
         {
