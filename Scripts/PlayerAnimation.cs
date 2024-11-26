@@ -8,20 +8,19 @@ public class PlayerAnimation : MonoBehaviour
     CharacterController playerCont;
     bool canTakeDamage = true, isRestart;
     int playerHp;
-    PlayerMovement playerMovement;
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         playerCont = GetComponent<CharacterController>();
         playerHp = 3;
-        playerMovement = FindObjectOfType<PlayerMovement>();
-        isRestart = playerMovement.isRestart;
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+        isRestart = playerMovement.isRestart;
         if (canTakeDamage)
         {
             float lakad = Input.GetAxis("Vertical");

@@ -34,40 +34,37 @@ public class PlayerMovement : MonoBehaviour
         {
             isDone = true;
         }
-        if(!isPaused)
+        if(!isDone || !isPaused)
         {
-            if(!isDone)
+            if(canTakeDamage)
             {
-                if(canTakeDamage)
+                if(Input.GetKey(KeyCode.LeftShift))
                 {
-                    if(Input.GetKey(KeyCode.LeftShift))
-                    {
-                        lakad = Input.GetAxis("Vertical") *.5f;
-                    }else
-                    {
-                        lakad = Input.GetAxis("Vertical") * 0.25f;
-                    }
+                    lakad = Input.GetAxis("Vertical") *.5f;
+                }else
+                {
+                    lakad = Input.GetAxis("Vertical") * 0.25f;
+                }
 
-                    playerCont.Move(
-                        transform.TransformDirection(
-                        new Vector3(Input.GetAxis("Horizontal") * .1f,
-                        drop, lakad)));
-                    if(playerCont.isGrounded){
-                        if(Input.GetButtonDown("Jump"))
-                            {
-                                drop = 0.5f;
-                            }
-                    }
-                    else
-                    {
-                        drop -= .01f;
-                    };
-                    float rotY = Input.GetAxis("Mouse X");
-                    transform.Rotate(0,rotY,0);
-                    if(Input.GetButtonDown("Fire2"))
-                    {
-                        StartCoroutine(FireBullet());
-                    }
+                playerCont.Move(
+                    transform.TransformDirection(
+                    new Vector3(Input.GetAxis("Horizontal") * .1f,
+                    drop, lakad)));
+                if(playerCont.isGrounded){
+                    if(Input.GetButtonDown("Jump"))
+                        {
+                            drop = 0.5f;
+                        }
+                }
+                else
+                {
+                    drop -= .01f;
+                };
+                float rotY = Input.GetAxis("Mouse X");
+                transform.Rotate(0,rotY,0);
+                if(Input.GetButtonDown("Fire2"))
+                {
+                    StartCoroutine(FireBullet());
                 }
             }
         }
