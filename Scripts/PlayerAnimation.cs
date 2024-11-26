@@ -6,7 +6,6 @@ public class PlayerAnimation : MonoBehaviour
 {
     Animator playerAnim;
     CharacterController playerCont;
-    PlayerMovement playerMovement;
     bool canTakeDamage = true;
     int playerHp;
     // Start is called before the first frame update
@@ -14,8 +13,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         playerAnim = GetComponent<Animator>();
         playerCont = GetComponent<CharacterController>();
-        playerMovement = GetComponent<PlayerMovement>();
-        playerHp = playerMovement.hp;
+        playerHp = 3;
     }
 
     // Update is called once per frame
@@ -57,6 +55,10 @@ public class PlayerAnimation : MonoBehaviour
         {
             StartCoroutine(Knockback());
         }
+        if(hit.collider.name == "Safety Net")
+        {
+            StartCoroutine(Knockback());
+        }
         if(hit.collider.name == "End")
         {
             playerAnim.SetBool("panalo", true);
@@ -67,6 +69,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         canTakeDamage = false;
         playerAnim.SetTrigger("hit");
+        playerHp--;
         if (playerHp <= 0)
         {
             playerAnim.SetBool("talo", true);

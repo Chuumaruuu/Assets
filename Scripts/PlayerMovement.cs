@@ -77,8 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (hit.collider.name == "Safety Net")
         {
-            transform.position = origPos;
-            hp-=1;
+            StartCoroutine(RespawnPlayer());
         }
         if (hit.gameObject.tag == "Keys")
         {
@@ -92,6 +91,17 @@ public class PlayerMovement : MonoBehaviour
         {
             isDone = true;
         }
+    }
+
+    private IEnumerator RespawnPlayer()
+    {
+        canTakeDamage = false;
+        playerCont.enabled = false;
+        playerCont.transform.position = origPos;
+        yield return new WaitForSeconds(1);
+        hp--;
+        playerCont.enabled = true;
+        canTakeDamage = true;
     }
 
     private IEnumerator KnockbackAndDamage()
