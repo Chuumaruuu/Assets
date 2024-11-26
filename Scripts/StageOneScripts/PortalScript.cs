@@ -27,4 +27,12 @@ public class PortalScript : MonoBehaviour
             other.transform.position = teleportTarget.position;
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && gameObject.CompareTag("Portal1"))
+        {
+            collision.gameObject.transform.position = teleportTarget.position;
+        }
+    }
 }
