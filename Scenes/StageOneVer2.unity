@@ -149,24 +149,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2138368650029328818, guid: b3eeae4ede40b4d47be8a019c56186c4, type: 3}
---- !u!1 &107625466 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 931296950101375426, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
-  m_PrefabInstance: {fileID: 1496042889153727802}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &107625468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107625466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 075eeb043879db04b9584e3bceacd9c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teleportTarget: {fileID: 1782827656}
 --- !u!1 &119305554 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1405289159320354502, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
@@ -1083,6 +1065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportTarget: {fileID: 1782827656}
+  player: {fileID: 0}
 --- !u!1 &1292702884 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4601506012008924249, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
@@ -1530,11 +1513,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1022306389952060958, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1022306389952060958, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2636080353483958470, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: m_TagString
@@ -1612,6 +1595,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: CoinStage1
       objectReference: {fileID: 0}
+    - target: {fileID: 8530302839573179013, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 888214898}
+    - target: {fileID: 8530302839573179013, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
+      propertyPath: teleportTarget
+      value: 
+      objectReference: {fileID: 1782827656}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8450121685852285539, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
@@ -1725,9 +1716,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4475883275780891433, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 442872057}
-    - targetCorrespondingSourceObject: {fileID: 931296950101375426, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 107625468}
     - targetCorrespondingSourceObject: {fileID: 6314086529628908942, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1190813674}
