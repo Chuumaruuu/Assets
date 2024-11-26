@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221be5ac94eb085448cfa7ee187afaab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.61
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221be5ac94eb085448cfa7ee187afaab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -776,6 +776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 0}
   bulletLoc: {fileID: 0}
+  hp: 3
+  backToMain: 0
 --- !u!114 &888214906
 MonoBehaviour:
   m_ObjectHideFlags: 0
