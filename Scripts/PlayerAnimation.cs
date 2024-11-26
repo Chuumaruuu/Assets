@@ -59,7 +59,7 @@ public class PlayerAnimation : MonoBehaviour
         }
         if(hit.collider.name == "End")
         {
-            playerAnim.SetTrigger("panalo");
+            playerAnim.SetBool("panalo", true);
         }
     }
 
@@ -69,7 +69,7 @@ public class PlayerAnimation : MonoBehaviour
         playerAnim.SetTrigger("hit");
         if (playerHp <= 0)
         {
-            playerAnim.SetTrigger("talo");
+            playerAnim.SetBool("talo", true);
         }
         yield return new WaitForSeconds(.5f);
         canTakeDamage = true;
