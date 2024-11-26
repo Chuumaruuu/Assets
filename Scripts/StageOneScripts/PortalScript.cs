@@ -19,20 +19,22 @@ public class PortalScript : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Teleporting");
-            other.transform.position = teleportTarget.position;
-        }
-    }
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Player"))
+    //     {
+    //         Debug.Log("Teleporting");
+    //         other.transform.position = teleportTarget.position;
+    //     }
+    // }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") && gameObject.CompareTag("Portal1"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Teleporting");
             collision.gameObject.transform.position = teleportTarget.position;
         }
     }
 }
+// && gameObject.CompareTag("Portal1")
