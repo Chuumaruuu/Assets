@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PortalScript : MonoBehaviour
@@ -9,7 +10,7 @@ public class PortalScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        teleportTarget = GameObject.Find("TeleportStageOneHere").transform;
+        
     }
 
     // Update is called once per frame
@@ -22,6 +23,7 @@ public class PortalScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Teleporting");
             other.transform.position = teleportTarget.position;
         }
     }
