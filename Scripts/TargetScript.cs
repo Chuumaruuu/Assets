@@ -16,6 +16,7 @@ public class TargetScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameObject.transform.Rotate(Vector3.up, 40*Time.deltaTime);
         if (Input.GetButtonDown("Fire1"))
         {
             isAttack = true;

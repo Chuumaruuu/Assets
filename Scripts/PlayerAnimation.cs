@@ -6,18 +6,21 @@ public class PlayerAnimation : MonoBehaviour
 {
     Animator playerAnim;
     CharacterController playerCont;
-    int hp=3;
-    bool canTakeDamage = true;
+    bool canTakeDamage = true, isRestart;
+    int playerHp;
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         playerCont = GetComponent<CharacterController>();
+        playerHp = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+        isRestart = playerMovement.isRestart;
         if (canTakeDamage)
         {
             float lakad = Input.GetAxis("Vertical");
@@ -45,7 +48,13 @@ public class PlayerAnimation : MonoBehaviour
                 playerAnim.SetTrigger("talon");
             }
         }
-        
+        if (isRestart)
+        {
+            playerAnim.SetBool("talo", false);
+            playerAnim.SetBool("panalo", false);
+            playerHp = 3;
+            isRestart = false;
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -54,9 +63,13 @@ public class PlayerAnimation : MonoBehaviour
         {
             StartCoroutine(Knockback());
         }
-        if(hit.collider.name == "Win")
+        if(hit.collider.name == "Safety Net")
         {
-            playerAnim.SetTrigger("panalo");
+            StartCoroutine(Knockback());
+        }
+        if(hit.collider.name == "End")
+        {
+            playerAnim.SetBool("panalo", true);
         }
     }
 
@@ -64,10 +77,10 @@ public class PlayerAnimation : MonoBehaviour
     {
         canTakeDamage = false;
         playerAnim.SetTrigger("hit");
-        hp--;
-        if (hp == 0)
+        playerHp--;
+        if (playerHp <= 0)
         {
-            playerAnim.SetTrigger("talo");
+            playerAnim.SetBool("talo", true);
         }
         yield return new WaitForSeconds(.5f);
         canTakeDamage = true;

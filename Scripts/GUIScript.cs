@@ -4,119 +4,140 @@ using UnityEngine;
 
 public class GUIScript : MonoBehaviour
 {
-    bool checker, start, character, stage, controls, playAgain;
+    bool MainMenu, start, character, stage, controls, playAgain, pause;
     int selectedChar = 0, selectedStage = 0, origChar, origStage;
-    public GameObject[] characters;
-    public GameObject[] stages;
+    GameObject selCam;
+    public GameObject selRoom;
+    public GameObject[] charSel;
+    public GameObject[] staSel;
+    [SerializeField] GameObject[] stageObj, charObj;
+    [SerializeField] Transform[] stageLoc;
+    [SerializeField] Transform charLoc;
     void Start()
     {
         origChar = selectedChar;
         origStage = selectedStage;
-        checker = true;
+        MainMenu = true;
         start = false;
         character = false;
         stage = false;
         controls = false;
         playAgain = false;
+        pause = false;
+        selCam = GameObject.Find("Selection Camera");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if(characters[selectedChar] != null)
+        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+        if (playerMovement != null)
         {
-            characters[selectedChar].transform.Rotate(Vector3.up, 20*Time.deltaTime);
+            // int playerHp = playerMovement.hp;
+            bool playerBackToMain = playerMovement.backToMain;
+            MainMenu = playerBackToMain;
         }
-        if(stages[selectedStage] != null)
+        if(charSel[selectedChar] != null)
         {
-            stages[selectedStage].transform.Rotate(Vector3.up, 20*Time.deltaTime);
+            charSel[selectedChar].transform.Rotate(Vector3.up, 20*Time.deltaTime);
+        }
+        if(staSel[selectedStage] != null)
+        {
+            staSel[selectedStage].transform.Rotate(Vector3.up, 20*Time.deltaTime);
         }
     }
 
     private void OnGUI()
     {
-        if (checker)
+        if (MainMenu)
         {
+            DestroyObj();
+            if (selCam != null)
+            {
+                selCam.SetActive(true);
+            }
             GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 150, 300, 300), "Main Menu");
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 30), "START"))
             {
-                checker = false;
+                MainMenu = false;
                 start = true;
             }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 30), "CHARACTER"))
             {
-                checker = false;
+                MainMenu = false;
                 character = true;
             }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "STAGE"))
             {
-                checker = false;
+                MainMenu = false;
                 stage = true;
             }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 200, 30), "CONTROLS"))
             {
-                checker = false;
+                MainMenu = false;
                 controls = true;
             }
         }
         if (character)
         {
-            characters[selectedChar].SetActive(true);
+            selRoom.SetActive(true);
+            charSel[selectedChar].SetActive(true);
             if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2, 75, 30), "PREV"))
             {
-                characters[selectedChar].SetActive(false);
-                selectedChar = (selectedChar - 1 + characters.Length) % characters.Length;
-                characters[selectedChar].SetActive(true);
+                charSel[selectedChar].SetActive(false);
+                selectedChar = (selectedChar - 1 + charSel.Length) % charSel.Length;
+                charSel[selectedChar].SetActive(true);
             }
             if (GUI.Button(new Rect(Screen.width / 2 + 125, Screen.height / 2, 75, 30), "NEXT"))
             {
-                characters[selectedChar].SetActive(false);
-                selectedChar = (selectedChar + 1) % characters.Length;
-                characters[selectedChar].SetActive(true);
+                charSel[selectedChar].SetActive(false);
+                selectedChar = (selectedChar + 1) % charSel.Length;
+                charSel[selectedChar].SetActive(true);
             }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 150, 75, 30), "OKAY"))
             {
                 origChar = selectedChar;
-                characters[selectedChar].SetActive(false);
-                checker = true;
+                charSel[selectedChar].SetActive(false);
+                selRoom.SetActive(false);
+                MainMenu = true;
                 character = false;
             }
             if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
             {
-                characters[selectedChar].SetActive(false);
+                charSel[selectedChar].SetActive(false);
                 selectedChar = origChar;
-                checker = true;
+                selRoom.SetActive(false);
+                MainMenu = true;
                 character = false;
             }
         }
         if(stage)
         {
-            stages[selectedStage].SetActive(true);
+            staSel[selectedStage].SetActive(true);
             if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2, 75, 30), "PREV"))
             {
-                stages[selectedStage].SetActive(false);
-                selectedStage = (selectedStage - 1 + stages.Length) % stages.Length;
-                stages[selectedStage].SetActive(true);
+                staSel[selectedStage].SetActive(false);
+                selectedStage = (selectedStage - 1 + staSel.Length) % staSel.Length;
+                staSel[selectedStage].SetActive(true);
             }
             if (GUI.Button(new Rect(Screen.width / 2 + 125, Screen.height / 2, 75, 30), "NEXT"))
             {
-                stages[selectedStage].SetActive(false);
-                selectedStage = (selectedStage + 1) % stages.Length;
-                stages[selectedStage].SetActive(true);
+                staSel[selectedStage].SetActive(false);
+                selectedStage = (selectedStage + 1) % staSel.Length;
+                staSel[selectedStage].SetActive(true);
             }
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 150, 75, 30), "OKAY"))
             {
                 origStage = selectedStage;
-                stages[selectedStage].SetActive(false);
-                checker = true;
+                staSel[selectedStage].SetActive(false);
+                MainMenu = true;
                 stage = false;
             }
             if (GUI.Button(new Rect(Screen.width / 2 + 25, Screen.height / 2 + 150, 75, 30), "BACK"))
             {
-                stages[selectedStage].SetActive(false);
+                staSel[selectedStage].SetActive(false);
                 selectedStage = origStage;
-                checker = true;
+                MainMenu = true;
                 stage = false;
             }
         }
@@ -131,20 +152,42 @@ public class GUIScript : MonoBehaviour
             GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2, 250, 30), "Space\t\t- Jump");
             GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 250, 30), "Mouse\t\t- Look Around");
             GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 250, 30), "Left-Click\t\t- Attack");
+            GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 75, 250, 30), "Right-Click\t\t- Shoot");
             if (GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 100, 200, 30), "BACK"))
             {
-                checker = true;
+                MainMenu = true;
                 controls = false;
             }
 
         }
         if (start)
         {
-            //aaaaa
+            if (selCam != null)
+            {
+                selCam.SetActive(false);
+            }
+            DestroyObj();
+            Instantiate(charObj[selectedChar], charLoc.position, charLoc.rotation);
+            Instantiate(stageObj[selectedStage], stageLoc[selectedStage].position, stageLoc[selectedStage].rotation);
+            
+            start = false;
         }
         if (playAgain)
         {
             
+        }
+    }
+
+    void DestroyObj(){
+        GameObject charInstance = GameObject.Find(charObj[selectedChar].name + "(Clone)");
+        if (charInstance != null)
+        {
+            Destroy(charInstance);
+        }
+        GameObject stageInstance = GameObject.Find(stageObj[selectedStage].name + "(Clone)");
+        if (stageInstance != null)
+        {
+            Destroy(stageInstance);
         }
     }
 }
