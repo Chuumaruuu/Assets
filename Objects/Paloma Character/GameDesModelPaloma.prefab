@@ -157,19 +157,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221be5ac94eb085448cfa7ee187afaab, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.4887377
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221be5ac94eb085448cfa7ee187afaab, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221be5ac94eb085448cfa7ee187afaab, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.8724308
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221be5ac94eb085448cfa7ee187afaab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221be5ac94eb085448cfa7ee187afaab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -290,6 +290,7 @@ MonoBehaviour:
   bulletLoc: {fileID: 3318197357077279350}
   hp: 3
   backToMain: 0
+  isRestart: 0
 --- !u!114 &6064851900410713398
 MonoBehaviour:
   m_ObjectHideFlags: 0

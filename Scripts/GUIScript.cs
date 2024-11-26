@@ -172,10 +172,6 @@ public class GUIScript : MonoBehaviour
             
             start = false;
         }
-        if (playAgain)
-        {
-            
-        }
     }
 
     void DestroyObj(){

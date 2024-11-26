@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 origPos;
     public int hp = 3;
     float drop, lakad;
-    bool isDone = false, canTakeDamage = true, isPaused = false;
+    bool isDone = false, canTakeDamage = true, isPaused = false, win = false;
     public bool backToMain = false, isRestart = false;
 
     // Start is called before the first frame update
@@ -87,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         if(hit.collider.name == "End")
         {
             isDone = true;
+            win = true;
         }
     }
 
@@ -146,6 +147,36 @@ public class PlayerMovement : MonoBehaviour
             if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 200, 30), "QUIT"))
             {
                 Application.Quit();
+            }
+        }
+        if(win)
+        {
+            float loading = 0;
+            loading = Time.deltaTime;
+            if(loading == 1)
+            {
+                GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 150, 300, 300), "YOU WIN!");
+                if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 30), "RESTART"))
+                {
+                    isRestart = true;
+                    playerCont.transform.position = origPos;
+                    hp = 3;
+                    isDone = false;
+                    win = false;
+                    float wait = Time.deltaTime;
+                    if(wait == 1){
+                        isRestart = false;
+                        wait = 0;
+                    }
+                }
+                if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 30), "BACK TO MAIN MENU"))
+                {
+                    backToMain = true;
+                }
+                if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "QUIT"))
+                {
+                    Application.Quit();
+                }
             }
         }
     }
