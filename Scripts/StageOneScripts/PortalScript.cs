@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class PortalScript : MonoBehaviour
 {
-    public Transform teleportTarget;
-    public GameObject player;
+    public Transform destination;
 
     void OnTriggerEnter(Collider other)
     {
-        player.transform.position = teleportTarget.transform.position;
+        if (other.CompareTag("Player"))
+        {
+            other.gameObject.SetActive(false);
+            other.transform.position = destination.position;
+            other.gameObject.SetActive(true);
+        }
     }
 }
