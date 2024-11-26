@@ -7,6 +7,7 @@ public class GUIScript : MonoBehaviour
     bool MainMenu, start, character, stage, controls, playAgain, pause;
     int selectedChar = 0, selectedStage = 0, origChar, origStage;
     GameObject selCam;
+    public GameObject selRoom;
     public GameObject[] charSel;
     public GameObject[] staSel;
     [SerializeField] GameObject[] stageObj, charObj;
@@ -79,6 +80,7 @@ public class GUIScript : MonoBehaviour
         }
         if (character)
         {
+            selRoom.SetActive(true);
             charSel[selectedChar].SetActive(true);
             if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2, 75, 30), "PREV"))
             {
@@ -96,6 +98,7 @@ public class GUIScript : MonoBehaviour
             {
                 origChar = selectedChar;
                 charSel[selectedChar].SetActive(false);
+                selRoom.SetActive(false);
                 MainMenu = true;
                 character = false;
             }
@@ -103,6 +106,7 @@ public class GUIScript : MonoBehaviour
             {
                 charSel[selectedChar].SetActive(false);
                 selectedChar = origChar;
+                selRoom.SetActive(false);
                 MainMenu = true;
                 character = false;
             }

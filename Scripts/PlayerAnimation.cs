@@ -6,21 +6,21 @@ public class PlayerAnimation : MonoBehaviour
 {
     Animator playerAnim;
     CharacterController playerCont;
-    PlayerMovement playerMovement;
-    bool canTakeDamage = true;
+    bool canTakeDamage = true, isRestart;
     int playerHp;
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         playerCont = GetComponent<CharacterController>();
-        playerMovement = GetComponent<PlayerMovement>();
-        playerHp = playerMovement.hp;
+        playerHp = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
+        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+        isRestart = playerMovement.isRestart;
         if (canTakeDamage)
         {
             float lakad = Input.GetAxis("Vertical");
@@ -48,12 +48,22 @@ public class PlayerAnimation : MonoBehaviour
                 playerAnim.SetTrigger("talon");
             }
         }
-        
+        if (isRestart)
+        {
+            playerAnim.SetBool("talo", false);
+            playerAnim.SetBool("panalo", false);
+            playerHp = 3;
+            isRestart = false;
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.tag == "obs")
+        {
+            StartCoroutine(Knockback());
+        }
+        if(hit.collider.name == "Safety Net")
         {
             StartCoroutine(Knockback());
         }
@@ -67,6 +77,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         canTakeDamage = false;
         playerAnim.SetTrigger("hit");
+        playerHp--;
         if (playerHp <= 0)
         {
             playerAnim.SetBool("talo", true);
