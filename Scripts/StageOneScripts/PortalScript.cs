@@ -10,7 +10,7 @@ public class PortalScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        teleportTarget = GameObject.Find("TeleportStageOneHere").transform;
     }
 
     // Update is called once per frame
@@ -19,22 +19,19 @@ public class PortalScript : MonoBehaviour
         
     }
 
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("Player"))
-    //     {
-    //         Debug.Log("Teleporting");
-    //         other.transform.position = teleportTarget.position;
-    //     }
-    // }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.transform.position = teleportTarget.position;
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && gameObject.CompareTag("Portal1"))
         {
-            Debug.Log("Teleporting");
             collision.gameObject.transform.position = teleportTarget.position;
         }
     }
 }
-// && gameObject.CompareTag("Portal1")
