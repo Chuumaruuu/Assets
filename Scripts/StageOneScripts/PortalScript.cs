@@ -23,6 +23,7 @@ public class PortalScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Teleporting");
             other.transform.position = teleportTarget.position;
         }
     }
