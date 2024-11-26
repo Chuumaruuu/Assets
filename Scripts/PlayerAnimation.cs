@@ -6,14 +6,17 @@ public class PlayerAnimation : MonoBehaviour
 {
     Animator playerAnim;
     CharacterController playerCont;
-    bool canTakeDamage = true;
+    bool canTakeDamage = true, isRestart;
     int playerHp;
+    PlayerMovement playerMovement;
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         playerCont = GetComponent<CharacterController>();
         playerHp = 3;
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        isRestart = playerMovement.isRestart;
     }
 
     // Update is called once per frame
@@ -46,7 +49,13 @@ public class PlayerAnimation : MonoBehaviour
                 playerAnim.SetTrigger("talon");
             }
         }
-        
+        if (isRestart)
+        {
+            playerAnim.SetBool("talo", false);
+            playerAnim.SetBool("panalo", false);
+            playerHp = 3;
+            isRestart = false;
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

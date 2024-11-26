@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public int hp = 3;
     float drop, lakad;
     bool isDone = false, canTakeDamage = true, isPaused = false;
-    public bool backToMain = false;
+    public bool backToMain = false, isRestart = false;
 
     // Start is called before the first frame update
     void Start()
@@ -130,10 +130,16 @@ public class PlayerMovement : MonoBehaviour
             }
             if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 30), "RESTART"))
             {
+                isRestart = true;
                 isPaused = false;
                 playerCont.transform.position = origPos;
                 hp = 3;
                 isDone = false;
+                float wait = Time.deltaTime;
+                if(wait == 1){
+                    isRestart = false;
+                    wait = 0;
+                }
             }
             if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "BACK TO MAIN MENU"))
             {
