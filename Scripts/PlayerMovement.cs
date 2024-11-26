@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public int hp = 3;
     float drop, lakad;
     bool isDone = false, canTakeDamage = true, isPaused = false;
-    public bool backToMain = false;
+    public bool backToMain = false, isRestart = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,40 +34,37 @@ public class PlayerMovement : MonoBehaviour
         {
             isDone = true;
         }
-        if(!isPaused)
+        if(!isDone || !isPaused)
         {
-            if(!isDone)
+            if(canTakeDamage)
             {
-                if(canTakeDamage)
+                if(Input.GetKey(KeyCode.LeftShift))
                 {
-                    if(Input.GetKey(KeyCode.LeftShift))
-                    {
-                        lakad = Input.GetAxis("Vertical") *.5f;
-                    }else
-                    {
-                        lakad = Input.GetAxis("Vertical") * 0.25f;
-                    }
+                    lakad = Input.GetAxis("Vertical") *.5f;
+                }else
+                {
+                    lakad = Input.GetAxis("Vertical") * 0.25f;
+                }
 
-                    playerCont.Move(
-                        transform.TransformDirection(
-                        new Vector3(Input.GetAxis("Horizontal") * .1f,
-                        drop, lakad)));
-                    if(playerCont.isGrounded){
-                        if(Input.GetButtonDown("Jump"))
-                            {
-                                drop = 0.5f;
-                            }
-                    }
-                    else
-                    {
-                        drop -= .01f;
-                    };
-                    float rotY = Input.GetAxis("Mouse X");
-                    transform.Rotate(0,rotY,0);
-                    if(Input.GetButtonDown("Fire2"))
-                    {
-                        StartCoroutine(FireBullet());
-                    }
+                playerCont.Move(
+                    transform.TransformDirection(
+                    new Vector3(Input.GetAxis("Horizontal") * .1f,
+                    drop, lakad)));
+                if(playerCont.isGrounded){
+                    if(Input.GetButtonDown("Jump"))
+                        {
+                            drop = 0.5f;
+                        }
+                }
+                else
+                {
+                    drop -= .01f;
+                };
+                float rotY = Input.GetAxis("Mouse X");
+                transform.Rotate(0,rotY,0);
+                if(Input.GetButtonDown("Fire2"))
+                {
+                    StartCoroutine(FireBullet());
                 }
             }
         }
@@ -77,8 +74,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (hit.collider.name == "Safety Net")
         {
-            transform.position = origPos;
-            hp-=1;
+            StartCoroutine(RespawnPlayer());
         }
         if (hit.gameObject.tag == "Keys")
         {
@@ -92,6 +88,17 @@ public class PlayerMovement : MonoBehaviour
         {
             isDone = true;
         }
+    }
+
+    private IEnumerator RespawnPlayer()
+    {
+        canTakeDamage = false;
+        playerCont.enabled = false;
+        playerCont.transform.position = origPos;
+        yield return new WaitForSeconds(1);
+        hp--;
+        playerCont.enabled = true;
+        canTakeDamage = true;
     }
 
     private IEnumerator KnockbackAndDamage()
@@ -120,10 +127,16 @@ public class PlayerMovement : MonoBehaviour
             }
             if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 30), "RESTART"))
             {
+                isRestart = true;
                 isPaused = false;
                 playerCont.transform.position = origPos;
                 hp = 3;
                 isDone = false;
+                float wait = Time.deltaTime;
+                if(wait == 1){
+                    isRestart = false;
+                    wait = 0;
+                }
             }
             if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "BACK TO MAIN MENU"))
             {

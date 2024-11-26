@@ -25,7 +25,7 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.name == "hand"&& isAttack)
+        if (other.name == "hitter"&& isAttack)
         {
             Destroy(gameObject);
         }
