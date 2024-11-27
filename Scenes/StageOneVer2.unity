@@ -675,6 +675,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2138368650029328818, guid: b3eeae4ede40b4d47be8a019c56186c4, type: 3}
+--- !u!1 &1062463011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7882482787815801680, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
+  m_PrefabInstance: {fileID: 1496042889153727802}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1062463012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062463011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85eb42b948a3e34993146983b924ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1115140757 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 380746235919616678, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
@@ -774,6 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {fileID: 0}
+  coin: {fileID: 0}
 --- !u!1 &1292702884 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4601506012008924249, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
@@ -1231,6 +1249,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 3.43
       objectReference: {fileID: 0}
+    - target: {fileID: 1958560513756470800, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1958560513756470800, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2636080353483958470, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: m_TagString
       value: TeleportStage1
@@ -1264,12 +1290,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4863690440322314808, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
+      propertyPath: coin
+      value: 
+      objectReference: {fileID: 1062463011}
+    - target: {fileID: 4863690440322314808, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4863690440322314808, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: playerG
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431798112976535629, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5752243761031207298, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: m_Name
@@ -1321,7 +1355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7882482787815801680, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: m_TagString
-      value: CoinStage1
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8530302839573179013, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       propertyPath: player
@@ -1444,6 +1478,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4475883275780891433, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 442872057}
+    - targetCorrespondingSourceObject: {fileID: 7882482787815801680, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1062463012}
     - targetCorrespondingSourceObject: {fileID: 6314086529628908942, guid: 857df85e590bc7a45ad23d333666dbf9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1190813674}
