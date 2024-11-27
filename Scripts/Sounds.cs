@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sounds : MonoBehaviour
 {
-    public AudioSource footstepsSound;
+   public AudioSource footstepsSound;
     public AudioSource JumpSound;
     public AudioSource AttackSlapSound;
     public AudioSource FireballSound;
