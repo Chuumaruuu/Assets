@@ -9,48 +9,44 @@ public class Sounds : MonoBehaviour
     public AudioSource AttackSlapSound;
     public AudioSource FireballSound;
 
-
     // Start is called before the first frame update
     void Start()
     {
         
+        footstepsSound.Stop();
+        JumpSound.Stop();
+        AttackSlapSound.Stop();
+        FireballSound.Stop();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
         {
-            footstepsSound.enabled = true;
-        }
-        else{
-            footstepsSound.enabled = false;
-        }
-           if(Input.GetKey(KeyCode.Space))
-        {
-            JumpSound.enabled = true;
+            if (!footstepsSound.isPlaying)
+            {
+                footstepsSound.Play();
+            }
         }
         else
         {
-            JumpSound.enabled = false;
+            footstepsSound.Stop();
         }
-            if(Input.GetButtonDown("Fire1"))
+       
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            AttackSlapSound.enabled = true;
+            JumpSound.Play();
         }
-        else
+       
+        if (Input.GetMouseButtonDown(0))
         {
-            AttackSlapSound.enabled = false;
-        }
-             if(Input.GetButtonDown("Fire2"))
-        {
-            FireballSound.enabled = true;
-        }
-        else
-        {
-            FireballSound.enabled = false;
+            AttackSlapSound.Play();
         }
 
-        
+        if (Input.GetMouseButtonDown(1))
+        {
+            FireballSound.Play();
+        }
     }
 }

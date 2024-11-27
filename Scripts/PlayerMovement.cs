@@ -34,37 +34,40 @@ public class PlayerMovement : MonoBehaviour
         {
             isDone = true;
         }
-        if(!isDone || !isPaused)
+        if(!isPaused)
         {
-            if(canTakeDamage)
+            if(!isDone)
             {
-                if(Input.GetKey(KeyCode.LeftShift))
+                if(canTakeDamage)
                 {
-                    lakad = Input.GetAxis("Vertical") *.5f;
-                }else
-                {
-                    lakad = Input.GetAxis("Vertical") * 0.25f;
-                }
+                    if(Input.GetKey(KeyCode.LeftShift))
+                    {
+                        lakad = Input.GetAxis("Vertical") *.5f;
+                    }else
+                    {
+                        lakad = Input.GetAxis("Vertical") * 0.25f;
+                    }
 
-                playerCont.Move(
-                    transform.TransformDirection(
-                    new Vector3(Input.GetAxis("Horizontal") * .1f,
-                    drop, lakad)));
-                if(playerCont.isGrounded){
-                    if(Input.GetButtonDown("Jump"))
-                        {
-                            drop = 0.5f;
-                        }
-                }
-                else
-                {
-                    drop -= .01f;
-                };
-                float rotY = Input.GetAxis("Mouse X");
-                transform.Rotate(0,rotY,0);
-                if(Input.GetButtonDown("Fire2"))
-                {
-                    StartCoroutine(FireBullet());
+                    playerCont.Move(
+                        transform.TransformDirection(
+                        new Vector3(Input.GetAxis("Horizontal") * .1f,
+                        drop, lakad)));
+                    if(playerCont.isGrounded){
+                        if(Input.GetButtonDown("Jump"))
+                            {
+                                drop = 0.5f;
+                            }
+                    }
+                    else
+                    {
+                        drop -= .01f;
+                    }
+                    float rotY = Input.GetAxis("Mouse X");
+                    transform.Rotate(0,rotY,0);
+                    if(Input.GetButtonDown("Fire2"))
+                    {
+                        StartCoroutine(FireBullet());
+                    }
                 }
             }
         }
@@ -145,6 +148,30 @@ public class PlayerMovement : MonoBehaviour
                 backToMain = true;
             }
             if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 50, 200, 30), "QUIT"))
+            {
+                Application.Quit();
+            }
+        }
+        if(isDone)
+        {
+            GUI.Box(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 150, 300, 300), "YOU LOSE!");
+            if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 30), "RESTART"))
+            {
+                isRestart = true;
+                playerCont.transform.position = origPos;
+                hp = 3;
+                isDone = false;
+                float wait = Time.deltaTime;
+                if(wait == 1){
+                    isRestart = false;
+                    wait = 0;
+                }
+            }
+            if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 30), "BACK TO MAIN MENU"))
+            {
+                backToMain = true;
+            }
+            if(GUI.Button(new Rect(Screen.width / 2 - 100, Screen.height / 2, 200, 30), "QUIT"))
             {
                 Application.Quit();
             }

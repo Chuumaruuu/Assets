@@ -31,7 +31,7 @@ public class FallingPlatforms : MonoBehaviour
 
     void Update()
     {
-        CapsuleCollider player = GetComponent<CapsuleCollider>();
+        CharacterController player = GetComponent<CharacterController>();
         
         for (int i = 0; i < fPlatTrans.Length; i++)
         {
