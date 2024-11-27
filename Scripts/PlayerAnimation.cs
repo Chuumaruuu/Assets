@@ -13,7 +13,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         playerAnim = GetComponent<Animator>();
         playerCont = GetComponent<CharacterController>();
-        playerHp = 3;
     }
 
     // Update is called once per frame
@@ -21,6 +20,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
         isRestart = playerMovement.isRestart;
+        playerHp = playerMovement.hp;
         if (canTakeDamage)
         {
             float lakad = Input.GetAxis("Vertical");
