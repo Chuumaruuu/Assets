@@ -8,6 +8,8 @@ public class Sounds : MonoBehaviour
     public AudioSource JumpSound;
     public AudioSource AttackSlapSound;
     public AudioSource FireballSound;
+    bool isPaused = false;
+    PlayerMovement playerMovement;
 
     // Start is called before the first frame update
     void Start()
@@ -22,31 +24,37 @@ public class Sounds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+        playerMovement = GetComponent<PlayerMovement>();
+        isPaused = playerMovement.isPaused;
+        if (!isPaused)
         {
-            if (!footstepsSound.isPlaying)
+            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
-                footstepsSound.Play();
+                if (!footstepsSound.isPlaying)
+                {
+                    footstepsSound.Play();
+                }
+            }
+            else
+            {
+                footstepsSound.Stop();
+            }
+        
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                JumpSound.Play();
+            }
+        
+            if (Input.GetMouseButtonDown(0))
+            {
+                AttackSlapSound.Play();
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                FireballSound.Play();
             }
         }
-        else
-        {
-            footstepsSound.Stop();
-        }
-       
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            JumpSound.Play();
-        }
-       
-        if (Input.GetMouseButtonDown(0))
-        {
-            AttackSlapSound.Play();
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            FireballSound.Play();
-        }
+        
     }
 }
