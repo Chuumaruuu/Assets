@@ -22,7 +22,6 @@ public class GUIScript : MonoBehaviour
         character = false;
         stage = false;
         controls = false;
-        playAgain = false;
         pause = false;
         selCam = GameObject.Find("Selection Camera");
     }
@@ -34,6 +33,7 @@ public class GUIScript : MonoBehaviour
         if (playerMovement != null)
         {
             // int playerHp = playerMovement.hp;
+            playAgain = playerMovement.isRestart;
             bool playerBackToMain = playerMovement.backToMain;
             MainMenu = playerBackToMain;
         }
@@ -160,7 +160,7 @@ public class GUIScript : MonoBehaviour
             }
 
         }
-        if (start)
+        if (start || playAgain)
         {
             if (selCam != null)
             {
@@ -169,8 +169,8 @@ public class GUIScript : MonoBehaviour
             DestroyObj();
             Instantiate(charObj[selectedChar], charLoc.position, charLoc.rotation);
             Instantiate(stageObj[selectedStage], stageLoc[selectedStage].position, stageLoc[selectedStage].rotation);
-            
             start = false;
+            playAgain = false;
         }
     }
 

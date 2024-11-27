@@ -6,7 +6,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     Animator playerAnim;
     CharacterController playerCont;
-    bool canTakeDamage = true, isRestart;
+    bool canTakeDamage = true, isRestart, isPaused;
     int playerHp;
     // Start is called before the first frame update
     void Start()
@@ -21,31 +21,35 @@ public class PlayerAnimation : MonoBehaviour
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
         isRestart = playerMovement.isRestart;
         playerHp = playerMovement.hp;
-        if (canTakeDamage)
+        isPaused = playerMovement.isPaused;
+        if(!isPaused)
         {
-            float lakad = Input.GetAxis("Vertical");
-            float lakad2 = Input.GetAxis("Horizontal");
-            if (lakad2 != 0)
+            if (canTakeDamage)
             {
-                lakad = lakad2;
-            }
-            playerAnim.SetFloat("lakad", lakad);
-            bool checkRun = false;
-            if (Input.GetKey(KeyCode.LeftShift) && lakad > 0)
-            {
-                checkRun = true;
-            }
-            playerAnim.SetBool("takbo", checkRun);
-            AnimatorStateInfo animInfo = playerAnim.GetCurrentAnimatorStateInfo(0);
-            if (Input.GetButtonDown("Fire1"))
-            {
-                StartCoroutine(atk());
-            }
-            if(Input.GetButtonDown("Fire2")){
-                StartCoroutine(FireBullet());
-            }
-            if(Input.GetButtonDown("Jump") && playerCont.isGrounded){
-                playerAnim.SetTrigger("talon");
+                float lakad = Input.GetAxis("Vertical");
+                float lakad2 = Input.GetAxis("Horizontal");
+                if (lakad2 != 0)
+                {
+                    lakad = lakad2;
+                }
+                playerAnim.SetFloat("lakad", lakad);
+                bool checkRun = false;
+                if (Input.GetKey(KeyCode.LeftShift) && lakad > 0)
+                {
+                    checkRun = true;
+                }
+                playerAnim.SetBool("takbo", checkRun);
+                AnimatorStateInfo animInfo = playerAnim.GetCurrentAnimatorStateInfo(0);
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    StartCoroutine(atk());
+                }
+                if(Input.GetButtonDown("Fire2")){
+                    StartCoroutine(FireBullet());
+                }
+                if(Input.GetButtonDown("Jump") && playerCont.isGrounded){
+                    playerAnim.SetTrigger("talon");
+                }
             }
         }
         if (isRestart)
@@ -81,6 +85,9 @@ public class PlayerAnimation : MonoBehaviour
         if (playerHp <= 0)
         {
             playerAnim.SetBool("talo", true);
+        }else
+        {
+            playerAnim.SetBool("talo", false);
         }
         yield return new WaitForSeconds(.5f);
         canTakeDamage = true;

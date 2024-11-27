@@ -546,6 +546,7 @@ MonoBehaviour:
   hp: 3
   backToMain: 0
   isRestart: 0
+  isPaused: 0
 --- !u!114 &3067121761225924823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,12 +616,12 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6.3
-  m_Height: 34.98
+  m_Radius: 6.4
+  m_Height: 35.1
   m_Direction: 1
   m_Center: {x: 0, y: 17.5, z: 0}
 --- !u!54 &5610403443008239489
@@ -924,8 +925,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0

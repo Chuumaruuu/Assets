@@ -95,8 +95,9 @@ GameObject:
   - component: {fileID: 4398157845240519996}
   - component: {fileID: 1940367577888352758}
   - component: {fileID: 5666691777902308618}
+  - component: {fileID: 248336622584223021}
   m_Layer: 0
-  m_Name: Collectable_Star_01
+  m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,6 +180,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afcc174878447a343b6b6a4361fe879c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &248336622584223021
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138888625782245411}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7518307, y: 0.7165125, z: 0.1173467}
+  m_Center: {x: 0.0007785558, y: 0.03700453, z: 0.000000001862645}
 --- !u!1 &205990648840326190
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +799,7 @@ GameObject:
   - component: {fileID: 6604867578643327887}
   - component: {fileID: 2076977195754705307}
   m_Layer: 0
-  m_Name: End
+  m_Name: Grah
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -792,7 +814,7 @@ Transform:
   m_GameObject: {fileID: 591686941157687378}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 84.194, y: 1.1419525, z: 106.046295}
+  m_LocalPosition: {x: 88.203094, y: -3.7175598, z: 106.046295}
   m_LocalScale: {x: 100, y: 3, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5479,7 +5501,7 @@ Transform:
   m_GameObject: {fileID: 6404495190858556782}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.110001, y: -3.22, z: 5.964711}
+  m_LocalPosition: {x: 4.27, y: -3.32, z: 5.964711}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5622,8 +5644,8 @@ GameObject:
   - component: {fileID: 5827700379021815903}
   - component: {fileID: 7444446932804452346}
   - component: {fileID: 4659829521940138800}
-  - component: {fileID: 5231113409819303848}
   - component: {fileID: 5083105213585251181}
+  - component: {fileID: 1343729983058846603}
   m_Layer: 0
   m_Name: 97_Othert_Key_Yellow
   m_TagString: target
@@ -5696,18 +5718,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5231113409819303848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6605643976830708453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afcc174878447a343b6b6a4361fe879c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &5083105213585251181
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5723,12 +5733,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.62201285, y: 1.2629145, z: 0.122016236}
   m_Center: {x: 0.0020528287, y: 0.67714685, z: -0.000027200207}
+--- !u!114 &1343729983058846603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6605643976830708453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85eb42b948a3e34993146983b924ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6701569542290010801
 GameObject:
   m_ObjectHideFlags: 0
@@ -5757,7 +5779,7 @@ Transform:
   m_GameObject: {fileID: 6701569542290010801}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.4099994, y: -2.54, z: 4.424711}
+  m_LocalPosition: {x: -2.08, y: -2.94, z: 4.424711}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
